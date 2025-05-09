@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baolex Automation - AI Solutions for Businesses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --light-gray: #e2e8f0;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: white;
+            --footer-bg: #1e293b;
+            --nav-bg: white;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --text-color: #f8fafc;
+            --card-bg: #1e293b;
+            --footer-bg: #020617;
+            --nav-bg: #1e293b;
+            --light-gray: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--primary-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation-delay: 0.2s;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation-delay: 0.4s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation-delay: 0.6s;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation-delay: 0.8s;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards 0.2s;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 5%;
+            background-color: var(--light-gray);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .pricing-card.popular::before {
+            content: "Popular";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.3rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-bottom-left-radius: 0.5rem;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .pricing-features {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li i {
+            color: var(--secondary);
+        }
+        /* Pricing Tabs */
+.pricing-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background-color: var(--light-gray);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+}
+
+.pricing-tab {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--gray);
+    border-radius: 0.3rem;
+    transition: all 0.3s;
+}
+
+.pricing-tab.active {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Comparison Table */
+.comparison-table {
+    background-color: var(--card-bg);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 3rem;
+    overflow-x: auto;
+}
+
+.comparison-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.comparison-table th, 
+.comparison-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.comparison-table th {
+    font-weight: 600;
+    background-color: var(--light-gray);
+}
+
+.comparison-table tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table td i.fa-check {
+    color: var(--secondary);
+}
+
+.comparison-table td i.fa-times {
+    color: #ef4444;
+}
+
+/* FAQ Section */
+.faq-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1.5rem;
+    text-align: left;
+    border: none;
+    background: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+.faq-question i {
+    transition: transform 0.3s;
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.faq-answer.active {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 500px;
+}
+
+/* Pricing CTA */
+.pricing-cta {
+    text-align: center;
+    padding: 3rem;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 0.5rem;
+    margin-top: 3rem;
+}
+
+.pricing-cta h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.pricing-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pricing-cta .btn {
+    background-color: white;
+    color: var(--primary);
+}
+
+.pricing-cta .btn:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Popular Badge */
+.popular-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: white;
+    padding: 0.3rem 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 2rem;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards 0.2s;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards 0.4s;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-card ul {
+            margin-left: 1.5rem;
+            color: var(--gray);
+        }
+
+        .service-card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .footer-logo span {
+            color: var(--secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .contact {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--nav-bg);
+                flex-direction: column;
+                padding: 1rem 5%;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">Baolex<span>Automation</span> Agency</a>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="about">About</a>
+                <a href="#" class="nav-link" data-page="services">Services</a>
+                <a href="#" class="nav-link" data-page="pricing">Pricing</a>
+                <a href="#" class="nav-link" data-page="contact">Contact</a>
+                <a href="#" class="btn btn-outline" data-page="contact">Book a call</a>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <span class="tag fade-in">New: Automated Lead Generation</span>
+            <h1 class="fade-in">Intelligent Automation for Modern Businesses</h1>
+            <p class="fade-in">Baolex brings AI automation to your fingertips & streamlines tasks.</p>
+            <div class="hero-btns fade-in">
+                <a href="#" class="btn btn-primary" data-page="contact">Get in touch</a>
+                <a href="#" class="btn btn-outline" data-page="services">View services</a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="section-title">
+                <h2>Our Automation services</h2>
+                <p>Transform your business with our cutting-edge AI automation tools</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Process Automation</h3>
+                    <p>Automate repetitive tasks and workflows to save time and reduce errors in your business operations.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data Analytics</h3>
+                    <p>Get actionable insights from your data with our powerful AI-driven analytics platform.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Lead Generation</h3>
+                    <p>Our automated systems identify and qualify leads so you can focus on closing deals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Preview -->
+        <section class="pricing">
+            <div class="section-title">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that fits your business needs</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card fade-in" style="animation-delay: 0.2s;">
+                    <h3>Starter plan</h3>
+                    <div class="price">10,000 FCFA<span>/week</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Basic Automation</li>
+                        <li><i class="fas fa-check"></i> 5 Workflows</li>
+                        <li><i class="fas fa-check"></i> Email Support</li>
+                        <li><i class="fas fa-check"></i> Analytics Dashboard</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="width: 100%;" data-page="contact">Get Started</a>
+                </div>
+                <div class="pricing-card popular fade-in" style="animation-delay: 0.4s;">
+                    <h3>Pro plan</h3>
+                    <div class="price">50,000 FCFA<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Starter Features</li>
+                        <li><i class="fas fa-check"></i> Advanced Automation</li>
+                        <li><i class="fas fa-check"></i> 30 Workflows</li>
+                        <li><i class="fas fa-check"></i> Priority Support</li>
+                        <li><i class="fas fa-check"></i> API Access</li>
+                        <li><i class="fas fa-check"></i> Secutity maintenance</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%;" data-page="contact">Get Started</a>
+                </div>
+                <div class="pricing-card fade-in" style="animation-delay: 0.6s;">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Professional Features</li>
+                        <li><i class="fas fa-check"></i> Unlimited Workflows</li>
+                        <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                        <li><i class="fas fa-check"></i> Custom Integrations</li>
+                        <li><i class="fas fa-check"></i> 24/7 Support</li>
+                    </ul>
+                    <a href="#" class="btn btn-outline" style="width: 100%;" data-page="contact">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" class="page">
+        <section class="hero">
+            <h1 class="fade-in">About Baolex Automation Agency</h1>
+            <p class="fade-in">Driving business transformation through intelligent automation solutions.</p>
+        </section>
+
+        <section class="features">
+            <div class="section-title">
+                <h2>Our Story</h2>
+                <p>At BAOLEX, everything started with a simple but powerful idea: using artificial intelligence to help entrepreneurs save time, automate their tasks, and grow their businesses faster.
+                    Founded by a young tech enthusiast with a passion for innovation, BAOLEX was born from a clear vision: to make automation tools accessible to everyone, even with a small budget. In a world where every second counts, we decided to create smart, fast, and personalized solutions.
+                    Today, BAOLEX supports creators, small business owners, influencers, and startups by automating their sales, customer service, social media, and more. With our expertise in chatbots, automation, design, and AI, we turn simple ideas into powerful systems.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To empower businesses of all sizes with accessible, powerful automation tools that drive efficiency and growth.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>A world where businesses can focus on what matters most while automation handles the rest.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Our Team</h3>
+                    <p>A diverse group of AI experts, developers, and business strategists passionate about automation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" style="background-color: var(--light-gray); padding: 4rem 5%; border-radius: 0.5rem;">
+            <div class="section-title">
+                <h2>Why Choose Us</h2>
+                <p>Why choose BAOLEX? Because we turn complex automation into simple, effective solutions tailored to your business. With the power of AI, we help you save time, increase productivity, and grow faster  all at a price that fits your budget. Whether you're a beginner or an experienced entrepreneur, BAOLEX gives you smart tools, expert support, and real results.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in" style="animation-delay: 0.2s; background-color: var(--card-bg);">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Cutting-Edge Technology</h3>
+                    <p>We stay at the forefront of AI and automation technology to deliver the most effective solutions.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.4s; background-color: var(--card-bg);">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Exceptional Support</h3>
+                    <p>Our team is dedicated to your success with responsive, knowledgeable support.</p>
+                </div>
+                <div class="feature-card fade-in" style="animation-delay: 0.6s; background-color: var(--card-bg);">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Focused</h3>
+                    <p>Your data's security is our top priority with enterprise-grade protection measures.</p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Services Page -->
+    <section id="services" class="page">
+        <section class="hero">
+            <h1 class="fade-in">Our Services</h1>
+            <p class="fade-in">At BAOLEX, we specialize in smart automation powered by artificial intelligence. Our core services include chatbot development, automated customer service systems, social media automation, and task workflows tailored to your business needs. We also offer consulting and implementation to help you integrate AI tools smoothly into your daily operations, boosting efficiency and saving valuable time.</p>
+           
+        </section>
+
+        <section class="services">
+            <div class="section-title">
+                <h2>What We Offer</h2>
+                <p>We offer ready-to-use automation packages, custom-built AI solutions, and visual content creation such as branding elements and designs. Whether you're a small business, a content creator, or a growing brand, BAOLEX provides flexible, budget-friendly options to help you scale faster. Every offer comes with step-by-step support, making sure you understand, control, and benefit fully from the power of automation.</p>
+            </div>
+
+            <div class="service-card fade-in" style="animation-delay: 0.2s;">
+                <h3>Business Process Automation</h3>
+                <p>Streamline your operations with our custom automation solutions:</p>
+                <ul>
+                    <li>Workflow automation and optimization</li>
+                    <li>Document processing and management</li>
+                    <li>Data entry and migration automation</li>
+                    <li>Custom API integrations</li>
+                    <li>ERP and CRM system automation</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in" style="animation-delay: 0.4s;">
+                <h3>AI-Powered Analytics</h3>
+                <p>Unlock insights from your data with our advanced analytics services:</p>
+                <ul>
+                    <li>Predictive analytics and forecasting</li>
+                    <li>Customer behavior analysis</li>
+                    <li>Sales and marketing performance tracking</li>
+                    <li>Custom dashboard development</li>
+                    <li>Real-time data visualization</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in" style="animation-delay: 0.6s;">
+                <h3>Lead Generation & Marketing Automation</h3>
+                <p>Grow your business with our automated marketing solutions:</p>
+                <ul>
+                    <li>Automated lead scoring and qualification</li>
+                    <li>Email marketing automation</li>
+                    <li>Social media management automation</li>
+                    <li>Chatbot development and integration</li>
+                    <li>Customer journey automation</li>
+                </ul>
+            </div>
+        </section>
+    </section>
+
+        <!-- Pricing Page -->
+        <section id="pricing" class="page">
+            <section class="hero">
+                <h1 class="fade-in">Pricing Plans</h1>
+                <p class="fade-in">Simple, flexible pricing designed to grow with your business</p>
+            </section>
+    
+            <section class="pricing">
+                <div class="section-title">
+                    <h2>Choose Your Plan</h2>
+                    <p>All plans come with a 14-day free trial. No credit card required.</p>
+                </div>
+                
+                <div class="pricing-tabs">
+                    <button class="pricing-tab active" data-billing="monthly">Monthly</button>
+                    <button class="pricing-tab" data-billing="annual">Annual (Save 20%)</button>
+                </div>
+    
+                <div class="pricing-grid">
+                    <!-- Starter Plan -->
+                    <div class="pricing-card fade-in" style="animation-delay: 0.2s;">
+                        <h3>Starter</h3>
+                        <div class="price monthly-price">$29<span>/month</span></div>
+                        <div class="price annual-price" style="display: none;">10,000 FCFA<span>/month</span></div>
+                        <p class="billed-annually" style="display: none;">Billed annually at 250,000 FCFA</p>
+                        <p>Perfect for small businesses getting started with automation</p>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Basic Automation</li>
+                            <li><i class="fas fa-check"></i> Up to 5 Workflows</li>
+                            <li><i class="fas fa-check"></i> Email Support</li>
+                            <li><i class="fas fa-check"></i> Analytics Dashboard</li>
+                            <li><i class="fas fa-check"></i> 1,000 tasks/month</li>
+                            <li><i class="fas fa-check"></i> 3 User Seats</li>
+                            <li><i class="fas fa-check"></i> Standard Integrations</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline" style="width: 100%;" data-page="contact">Start Free Trial</a>
+                    </div>
+    
+                    <!-- Professional Plan (Popular) -->
+                    <div class="pricing-card popular fade-in" style="animation-delay: 0.4s;">
+                        <div class="popular-badge">Most Popular</div>
+                        <h3>Pro plan</h3>
+                        <div class="price monthly-price">$79<span>/month</span></div>
+                        <div class="price annual-price" style="display: none;">$63<span>/month</span></div>
+                        <p class="billed-annually" style="display: none;">Billed annually at $756</p>
+                        <p>For growing businesses needing more automation power</p>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> All Starter Features</li>
+                            <li><i class="fas fa-check"></i> Advanced Automation</li>
+                            <li><i class="fas fa-check"></i> Up to 20 Workflows</li>
+                            <li><i class="fas fa-check"></i> Priority Support</li>
+                            <li><i class="fas fa-check"></i> API Access</li>
+                            <li><i class="fas fa-check"></i> 5,000 tasks/month</li>
+                            <li><i class="fas fa-check"></i> 10 User Seats</li>
+                            <li><i class="fas fa-check"></i> Advanced Integrations</li>
+                            <li><i class="fas fa-check"></i> Custom Workflows</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width: 100%;" data-page="contact">Start Free Trial</a>
+                    </div>
+    
+                    <!-- Enterprise Plan -->
+                    <div class="pricing-card fade-in" style="animation-delay: 0.6s;">
+                        <h3>Enterprise</h3>
+                        <div class="price">Custom</div>
+                        <p>Tailored solutions for large-scale automation needs</p>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> All Professional Features</li>
+                            <li><i class="fas fa-check"></i> Unlimited Workflows</li>
+                            <li><i class="fas fa-check"></i> Dedicated Account Manager</li>
+                            <li><i class="fas fa-check"></i> Custom Integrations</li>
+                            <li><i class="fas fa-check"></i> 24/7 Support</li>
+                            <li><i class="fas fa-check"></i> High Volume Tasks</li>
+                            <li><i class="fas fa-check"></i> Unlimited User Seats</li>
+                            <li><i class="fas fa-check"></i> On-premise Options</li>
+                            <li><i class="fas fa-check"></i> SLA Guarantee</li>
+                            <li><i class="fas fa-check"></i> Training & Onboarding</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline" style="width: 100%;" data-page="contact">Contact Sales</a>
+                    </div>
+                </div>
+    
+                <!-- Comparison Table -->
+                <div class="section-title" style="margin-top: 4rem;">
+                    <h2>Plan Comparison</h2>
+                    <p>Detailed breakdown of what's included in each plan</p>
+                </div>
+                
+                <div class="comparison-table fade-in">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Starter</th>
+                                <th>Professional</th>
+                                <th>Enterprise</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Workflows</td>
+                                <td>5</td>
+                                <td>20</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td>Tasks/month</td>
+                                <td>1,000</td>
+                                <td>5,000</td>
+                                <td>Custom</td>
+                            </tr>
+                            <tr>
+                                <td>User Seats</td>
+                                <td>3</td>
+                                <td>10</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td>Support</td>
+                                <td>Email</td>
+                                <td>Priority</td>
+                                <td>24/7 Dedicated</td>
+                            </tr>
+                            <tr>
+                                <td>API Access</td>
+                                <td><i class="fas fa-times"></i></td>
+                                <td><i class="fas fa-check"></i></td>
+                                <td><i class="fas fa-check"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Custom Integrations</td>
+                                <td><i class="fas fa-times"></i></td>
+                                <td>Limited</td>
+                                <td><i class="fas fa-check"></i></td>
+                            </tr>
+                            <tr>
+                                <td>On-premise Options</td>
+                                <td><i class="fas fa-times"></i></td>
+                                <td><i class="fas fa-times"></i></td>
+                                <td><i class="fas fa-check"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
+                <!-- FAQ Section -->
+                <div class="section-title" style="margin-top: 4rem;">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                
+                <div class="faq-section">
+                    <div class="faq-item fade-in" style="animation-delay: 0.2s;">
+                        <button class="faq-question">
+                            What payment methods do you accept?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We accept all major credit cards (Visa, Mastercard, Mobile Money, Orange money) as well as PayPal. For enterprise plans, we also accept bank transfers.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in" style="animation-delay: 0.3s;">
+                        <button class="faq-question">
+                            Can I switch plans later?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, you can upgrade or downgrade your plan at any time. Changes will be prorated based on your billing cycle.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in" style="animation-delay: 0.4s;">
+                        <button class="faq-question">
+                            Is there a long-term contract?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>No, all plans are month-to-month with no long-term commitment. You can cancel anytime. Annual plans offer a discount but can be canceled with prorated refund.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in" style="animation-delay: 0.5s;">
+                        <button class="faq-question">
+                            What happens if I exceed my task limit?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We'll notify you when you're approaching your limit. Additional tasks are charged at $0.05 per task for Starter and $0.03 per task for Professional plans. Enterprise plans have custom overage agreements.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item fade-in" style="animation-delay: 0.6s;">
+                        <button class="faq-question">
+                            Do you offer discounts for non-profits?
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we offer 25% discounts for registered non-profit organizations. Please contact our sales team with proof of your non-profit status to get this discount applied.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional CTA -->
+                <div class="pricing-cta fade-in" style="animation-delay: 0.7s;">
+                    <h3>Still have questions?</h3>
+                    <p>Our team is happy to help you choose the right plan for your business needs.</p>
+                    <a href="#" class="btn btn-primary" data-page="contact">Contact Our Sales Team</a>
+                </div>
+            </section>
+        </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="page">
+        <section class="hero">
+            <h1 class="fade-in">Contact Us</h1>
+            <p class="fade-in">We'd love to hear from you! Reach out to us for any inquiries or support.</p>
+        </section>
+
+        <section class="contact">
+            <div class="contact-info fade-in">
+                <h2>Get in Touch</h2>
+                <p>Feel free to contact us via the form or through the details below:</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <p>WhatsApp :(+237)694922975</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <p>support@baolexautomation.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <p>Rue lumiere Kotto, Douala, Cameroon</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form fade-in">
+                <h2>Contact Form</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </section>
+
+    <!-- Footer Update -->
+    <footer>
+        <div class="footer-content">
+            <a href="#" class="footer-logo">Baolex<span>Automation</span></a>
+            <div class="footer-links">
+                <a href="#" data-page="home">Home</a>
+                <a href="#" data-page="about">About</a>
+                <a href="#" data-page="services">Services</a>
+                <a href="#" data-page="pricing">Pricing</a>
+                <a href="#" data-page="contact">Contact</a>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="copyright">© 2025 Baolex Automation Agency. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    // Pricing Tabs Functionality
+const pricingTabs = document.querySelectorAll('.pricing-tab');
+const monthlyPrices = document.querySelectorAll('.monthly-price');
+const annualPrices = document.querySelectorAll('.annual-price');
+const billedAnnually = document.querySelectorAll('.billed-annually');
+
+pricingTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        pricingTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        if (tab.dataset.billing === 'monthly') {
+            monthlyPrices.forEach(price => price.style.display = 'block');
+            annualPrices.forEach(price => price.style.display = 'none');
+            billedAnnually.forEach(text => text.style.display = 'none');
+        } else {
+            monthlyPrices.forEach(price => price.style.display = 'none');
+            annualPrices.forEach(price => price.style.display = 'block');
+            billedAnnually.forEach(text => text.style.display = 'block');
+        }
+    });
+});
+
+// FAQ Accordion
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        question.classList.toggle('active');
+        const answer = question.nextElementSibling;
+        answer.classList.toggle('active');
+    });
+});
+// Mobile Menu Toggle
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+mobileMenuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    const icon = mobileMenuBtn.querySelector('i');
+    if (navLinks.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+    } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+    }
+});
+
+// Page Navigation
+const navLinksAll = document.querySelectorAll('.nav-link, .footer-links a, .btn[data-page]');
+const pages = document.querySelectorAll('.page');
+
+navLinksAll.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageId = link.getAttribute('data-page');
+
+        // Ensure the page exists before proceeding
+        const targetPage = document.getElementById(pageId);
+        if (!targetPage) return;
+
+        // Hide all pages
+        pages.forEach(page => page.classList.remove('active'));
+
+        // Show selected page
+        targetPage.classList.add('active');
+
+        // Update active nav link
+        document.querySelectorAll('.nav-link').forEach(navLink => navLink.classList.remove('active'));
+        const activeNavLink = document.querySelector(`.nav-link[data-page="${pageId}"]`);
+        if (activeNavLink) activeNavLink.classList.add('active');
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+        // Close mobile menu if open
+        if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+});
+
+// Form Submission
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+        
+        // Here you would typically send the data to your server
+        // For demonstration, we'll just show an alert
+        alert(`Thank you for your message, ${data.firstName}! We will get back to you soon at ${data.email}.`);
+        
+        // Reset form
+        contactForm.reset();
+        
+        // In a real implementation, you might use:
+        // fetch('/send-email', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(data),
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     alert('Message sent successfully!');
+        //     contactForm.reset();
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        //     alert('There was an error sending your message. Please try again.');
+        // });
+    });
+}
+
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme preference or use preferred color scheme
+const currentTheme = localStorage.getItem('theme') || 
+                   (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+// Apply the current theme
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    // Toggle between light and dark
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    }
+});
+
+// Animation on scroll
+const fadeElements = document.querySelectorAll('.fade-in, .feature-card, .pricing-card, .service-card');
+
+const animateOnScroll = () => {
+    fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementTop < windowHeight - 100 && !element.classList.contains('animated')) {
+            const delay = element.getAttribute('data-delay') || '0s';
+            element.style.animation = `fadeIn 0.8s forwards ${delay}`;
+            element.classList.add('animated');
+        }
+    });
+};
+
+// Initial check
+animateOnScroll();
+
+// Check on scroll
+window.addEventListener('scroll', animateOnScroll);
+</script>
+</body>
+</html>
